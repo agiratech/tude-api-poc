@@ -1,0 +1,2 @@
+module ArimaHelper
+end

@@ -10,31 +10,36 @@ class Api::ArimaController < ApplicationController
     result = []
     trend_line = []
     data_set.each_with_index do |data,i|
-      number = avg
+      number = 0
       set.push(data)
       set.each_with_index do |a,index|
-        number = index ==0 ? 0 : index <=2 ? (a - set[index -1]) : (set[index - 2] - set[index -1])
-        set[index] = avg-number
-      end
-      final_result =  avg+number+pacf[i].round
-      final_result = avg+(number /2) if final_result == 0
-      if (final_result > 100)
-        if ((final_result - 100) >= final_result/2 )
-          final_result = 100
-        elsif(avg + (final_result - 100)) < 100
-          final_result = (100 - (final_result- 100))
-        else
-          final_result = 100
+        if index  < 11 && index < ((set.size) -1)
+          binding.pry if index ==11
+          number += (set[index+1] - a)
+          puts number
         end
+        # number = index ==0 ? 0 : index <=2 ? (a - set[index -1]) : (set[index - 2] - set[index -1])
       end
-      final_result = avg - final_result if final_result <= 0
-      final_result = 0 if final_result <0
+      number = number / set.size
+      final_result =  avg+number+pacf[i].round
+    #   final_result = avg+(number /2) if final_result == 0
+    #   if (final_result > 100)
+    #     if ((final_result - 100) >= final_result/2 )
+    #       final_result = 100
+    #     elsif(avg + (final_result - 100)) < 100
+    #       final_result = (100 - (final_result- 100))
+    #     else
+    #       final_result = 100
+    #     end
+    #   end
+    #   final_result = avg - final_result if final_result <= 0
+    #   final_result = 0 if final_result <0
       result << final_result
       trend_line << pacf[i] + avg
     end
     # print result
     respond_to do |format|
-       format.json { render json: { data: result, trend_line: trend_line}}
+       format.json { render json: { data: result, trend_line: trend_line,avg:avg}}
     end
   end
 end

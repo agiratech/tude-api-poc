@@ -21,7 +21,9 @@ class Api::ArimaController < ApplicationController
         # number = index ==0 ? 0 : index <=2 ? (a - set[index -1]) : (set[index - 2] - set[index -1])
       end
       number = number / set.size
-      final_result =  avg+number+pacf[i].round
+      # data_avg = avg
+      data_avg = ((data_set[(0..i)]).inject(&:+)) / (i+1)
+      final_result =  data_avg+number+pacf[i].round
     #   final_result = avg+(number /2) if final_result == 0
     #   if (final_result > 100)
     #     if ((final_result - 100) >= final_result/2 )

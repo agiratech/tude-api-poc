@@ -14,9 +14,22 @@ class Api::ArimaController < ApplicationController
       set.push(data)
       set.each_with_index do |a,index|
         number = index ==0 ? 0 : index <=2 ? (a - set[index -1]) : (set[index - 2] - set[index -1])
-        set[index] = number+avg
+        set[index] = avg-number
       end
-      result << avg+number+pacf[i].round
+      final_result =  avg+number+pacf[i].round
+      final_result = avg+(number /2) if final_result == 0
+      if (final_result > 100)
+        if ((final_result - 100) >= final_result/2 )
+          final_result = 100
+        elsif(avg + (final_result - 100)) < 100
+          final_result = (100 - (final_result- 100))
+        else
+          final_result = 100
+        end
+      end
+      final_result = avg - final_result if final_result <= 0
+      final_result = 0 if final_result <0
+      result << final_result
       trend_line << pacf[i] + avg
     end
     # print result

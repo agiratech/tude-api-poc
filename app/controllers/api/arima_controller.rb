@@ -13,12 +13,12 @@ class Api::ArimaController < ApplicationController
       number = avg
       set.push(data)
       set.each_with_index do |a,index|
-        number = index ==0 ?  0 : (a - set[index -1])
+        number = index ==0 ? 0 : index <=2 ? (a - set[index -1]) : (set[index - 2] - set[index -1])
+        set[index] = number+avg
       end
       result << avg+number+pacf[i].round
       trend_line << pacf[i] + avg
     end
-
     # print result
     respond_to do |format|
        format.json { render json: { data: result, trend_line: trend_line}}

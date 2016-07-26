@@ -5,7 +5,8 @@ class Api::ArimaController < ApplicationController
     data_set += [avg,avg]
     ts = data_set.to_ts
     ln  = data_set.size
-    pacf = ts.pacf(ln, 'mle')
+
+    pacf = data_set.uniq.size == 1 ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0] : ts.pacf(ln, 'mle')
     set = []
     result = []
     trend_line = []

@@ -2,7 +2,7 @@ class Api::ArimaController < ApplicationController
   def get_prediction_data
     data_set = JSON.parse(params[:data_set])["data"]
     avg = (data_set.inject(&:+)) / data_set.size
-    data_set += [0,0]
+    data_set += [avg,avg]
     ts = data_set.to_ts
     ln  = data_set.size
     pacf = ts.pacf(ln, 'mle')
@@ -16,6 +16,7 @@ class Api::ArimaController < ApplicationController
         if index  < 11 && index < ((set.size) -1)
           number += (set[index+1] - a)
         end
+
         # number = index ==0 ? 0 : index <=2 ? (a - set[index -1]) : (set[index - 2] - set[index -1])
       end
       number = number / set.size

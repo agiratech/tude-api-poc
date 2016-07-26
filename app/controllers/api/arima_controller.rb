@@ -14,9 +14,7 @@ class Api::ArimaController < ApplicationController
       set.push(data)
       set.each_with_index do |a,index|
         if index  < 11 && index < ((set.size) -1)
-          binding.pry if index ==11
           number += (set[index+1] - a)
-          puts number
         end
         # number = index ==0 ? 0 : index <=2 ? (a - set[index -1]) : (set[index - 2] - set[index -1])
       end

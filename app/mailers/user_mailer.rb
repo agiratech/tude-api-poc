@@ -3,6 +3,6 @@ class UserMailer < ActionMailer::Base
 
   def send_status_mail(response)
     @response = response["jobs"]
-    mail(to: "bharani@agiratech.com", subject: 'Scraping hub status summary')
+    mail(to: "retaildash@agiratech.com", subject: 'Scraping hub status summary')
   end
 end

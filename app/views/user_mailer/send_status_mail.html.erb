@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<p>Scraping Hub Status Summary</p>
+<table>
+  <tr>
+    <th>Job</th>
+    <th>Spider</th>
+    <th>Items</th>
+    <th>Requests</th>
+    <th>Errors</th>
+  </tr>
+  <% @response.each do |res|%>
+    <tr>
+      <td><%= res["id"] %></td>
+      <td><%= res["spider"] %></td>
+      <td><%= res["items_scraped"] %></td>
+      <td><%= res["responses_received"] %></td>
+      <td><%= res["errors_count"] %></td>
+    </tr>
+  <% end %>
+</table>
+
+</body>
+</html>

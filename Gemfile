@@ -33,6 +33,8 @@ gem 'statsample-timeseries'
 gem 'rb-gsl'
 
 gem "rails-api"
+gem "httparty"
+gem "pry"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
